@@ -1,3 +1,40 @@
+# 413631531_StudentHub
+
+作業倉庫：https://github.com/yyycc21/413631531_StudentHub
+
+來源專案：[yyyxi18/115_StudentHub](https://github.com/yyyxi18/115_StudentHub)。保留範例程式與原始 Git 歷史。
+
+## Postman 實際測試截圖
+
+測試日期：2026-11-18。使用本機 Docker MongoDB 8 與本專案後端；`127.0.0.1` 是本機位址。
+
+| API | HTTP 狀態 | Postman 測試 | 結果 |
+| --- | --- | --- | --- |
+| GET `/api/v1/user/findAll` | 200 OK | 2/2 通過 | 新增後可讀取 51 筆學生資料 |
+| POST `/api/v1/user/insertOne` | 200 OK | 2/2 通過 | 新增 `tkuxx9999`，自動產生 `sid: 51` 與 `_id` |
+
+### findAll
+
+![Postman findAll 成功截圖](screenshots/findAll.png)
+
+### insertOne
+
+![Postman insertOne 成功截圖](screenshots/insertOne.png)
+
+[下載 Postman Collection](postman/413631531_StudentHub.postman_collection.json)，在 Postman 匯入後即可使用。請保持後端在 8877 埠執行。`insertOne` 使用的四位座號不可重複；再次測試時請修改 `userName` 最後四碼與對應測試斷言。
+
+## 本次本機執行設定
+
+本次匯入 `studentslist.csv` 的 50 筆資料後執行新增與查詢；未修改 API 原始碼。後端編譯命令為 `npx tsc`，啟動命令為 `node build/app.js`，均在 `BackEndExample` 內執行。
+
+本次 `.env` 使用 `DBUSER=studentAdmin`、`DBHOST=127.0.0.1`、`DBPORT=27017`、`DBNAME=studenthub`、`PORT=8877`、`LogPath=logs`。資料庫密碼應填自己的本機容器設定，`privateKey` 應自行產生；`.env`、日誌與套件未納入版本控制。
+
+目前連線程式使用 `authSource=admin`，所用帳號需建立於 `admin` 認證資料庫；若依下方原始說明使用建立於 `studenthub` 的應用帳號，需同步調整程式的 `authSource`。
+
+---
+
+## 原始專案說明
+
 # 115 StudentHub 實作：Docker、MongoDB 與 Postman
 
 本實作會帶你從 GitHub 複製專案，使用 Docker 啟動 MongoDB，建立資料庫管理員、匯入學生 CSV，設定後端 `.env`，最後啟動 API 並用 Postman 驗證。

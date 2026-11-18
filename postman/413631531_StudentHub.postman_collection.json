@@ -1,0 +1,23 @@
+{
+  "info": {
+    "name": "413631531_StudentHub",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "findAll",
+      "request": {"method": "GET", "url": "http://127.0.0.1:8877/api/v1/user/findAll"},
+      "event": [{"listen": "test", "script": {"type": "text/javascript", "exec": ["pm.test('HTTP 200', () => pm.response.to.have.status(200));", "pm.test('Student list', () => { const r = pm.response.json(); pm.expect(r.code).to.eql(200); pm.expect(r.body).to.be.an('array').that.is.not.empty; });"]}}]
+    },
+    {
+      "name": "insertOne",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "url": "http://127.0.0.1:8877/api/v1/user/insertOne",
+        "body": {"mode": "raw", "raw": "{\n  \"userName\": \"tkuxx9999\",\n  \"name\": \"測試學生\",\n  \"department\": \"測試系\",\n  \"grade\": \"一年級\",\n  \"class\": \"A\",\n  \"Email\": \"tkuxx9999@example.com\"\n}", "options": {"raw": {"language": "json"}}}
+      },
+      "event": [{"listen": "test", "script": {"type": "text/javascript", "exec": ["pm.test('HTTP 200', () => pm.response.to.have.status(200));", "pm.test('Student inserted', () => { const r = pm.response.json(); pm.expect(r.code).to.eql(200); pm.expect(r.body.userName).to.eql('tkuxx9999'); pm.expect(r.body._id).to.be.a('string'); });"]}}]
+    }
+  ]
+}
